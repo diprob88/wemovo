@@ -1,17 +1,39 @@
 <?php
-
+require_once 'src\php\class\Bus.php';
 class Reader
 {
 
-    public function printLineFile()
+    const path="txt/routing.txt";
+    private $buses;
+
+
+    public function __construct()
     {
-        $righe = file("txt/routing.txt", FILE_IGNORE_NEW_LINES);
-        if (!($righe)) {
-            die("Impossibile aprire miofile.txt");
+        $buses = array();
+        $rows= file(self::path, FILE_IGNORE_NEW_LINES);
+        if (!($rows)) {
+            die("Origin file not found");
         }
 
-        foreach ($righe as $riga) {
-            echo "<p>", $riga, "</p>";
+        foreach ($rows as $row) {
+            array_push($buses,new Bus($row));
+
+        }
+        $this->buses = $buses;
+    }
+
+
+    public function getBuses()
+    {
+        return  $this->buses;
+    }
+
+
+    public function printBuses()
+    {
+        foreach ($this->buses as $bus) {
+            $bus->printBus();
+            echo"<br>";
         }
     }
 }
