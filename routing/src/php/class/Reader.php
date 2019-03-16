@@ -1,16 +1,18 @@
 <?php
-require_once 'src\php\class\Bus.php';
+require_once (realpath($_SERVER["DOCUMENT_ROOT"]).'/src/php/class/Bus.php');
+
 class Reader
 {
 
-    const path="txt/routing.txt";
+    private $path;
     private $buses;
 
 
     public function __construct()
     {
+        $this->path = realpath($_SERVER["DOCUMENT_ROOT"]).'/txt/routing.txt';
         $buses = array();
-        $rows= file(self::path, FILE_IGNORE_NEW_LINES);
+        $rows= file($this->path, FILE_IGNORE_NEW_LINES);
         if (!($rows)) {
             die("Origin file not found");
         }

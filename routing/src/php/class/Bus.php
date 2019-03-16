@@ -1,7 +1,5 @@
 <?php
 
-
-
 class Bus
 {
     private $id;
