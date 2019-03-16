@@ -36,4 +36,20 @@ class Reader
             echo"<br>";
         }
     }
+
+    public function searchRoute($origin,$destination) {
+
+        $bus_routes_ids = array();
+        foreach ($this->buses as $bus) {
+            if($bus->searchRoute($origin,$destination))
+            {
+                array_push($bus_routes_ids,$bus->getId());
+            }
+        }
+
+        $json='{"bus_routes_ids:'.json_encode($bus_routes_ids ).'}';
+        echo $json;
+
+
+    }
 }
