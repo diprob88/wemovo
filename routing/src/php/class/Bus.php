@@ -1,13 +1,58 @@
 <?php
 
 
+
 class Bus
 {
     private $id;
-    private $station;
-    private $leg;
+    private $stations;
+    private $legs;
 
-    public function sayHello() {
-        echo "Hello!";
+
+    public function __construct($line)
+    {
+        $data=explode(",", $line);
+        $this->id=$data[0];
+        $this->stations = array();
+        for($i=1;$i<count($data);$i++)
+        {
+            array_push($this->stations,$data[$i]);
+
+        }
+        $this->legs=$this->makeLegs($this->stations);
+    }
+
+    public function getId()
+    {
+        return  $this->id;
+    }
+
+    public function getStations()
+    {
+        return  $this->stations;
+    }
+
+    public function getLegs()
+    {
+        return  $this->legs;
+    }
+
+    private function makeLegs($data)
+    {
+        $legs = array();
+        for($i=0;$i<count($data)-1;$i++)
+        {
+            array_push($legs,[
+                "origin"=>$data[$i],
+                "destination"=>$data[$i+1],
+            ]);
+
+        }
+        return $legs;
+    }
+
+    public function printBus() {
+        $json='{"id":'.$this->getId().',"stations":'.json_encode($this->stations).',"legs":'.json_encode($this->legs);
+        echo $json;
     }
 }
