@@ -49,7 +49,7 @@ class Reader
             }
         }
 
-        $json='{"bus_routes_ids:'.json_encode($bus_routes_ids ).'}';
+        $json='{"bus_routes_ids:"'.json_encode($bus_routes_ids ).'}';
         echo $json;
 
 
