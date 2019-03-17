@@ -1,8 +1,10 @@
 <?php
 require_once (realpath($_SERVER["DOCUMENT_ROOT"]).'/lib/php/Bus.php');
-$booking = $_GET['booking'];
+$booking = intval($_GET['booking']);
 
 
-$bus = new Bus(100,79);
+$bus = new Bus(100,32);
 
-echo $booking;
+$bus->addBooking($booking );
+$bus->printAvailable();
+
