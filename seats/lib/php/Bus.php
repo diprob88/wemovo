@@ -4,15 +4,15 @@
 class Bus
 {
     private $seats;
-    private $booking;
-    private $available;
+    private $seats_booked;
+    private $seats_available;
     private $requestBooking;
 
 
-    public function __construct($seats = 100,$booking = 0)
+    public function __construct($seats = 100,$seats_booked = 0)
     {
         $this->seats = $seats;
-        $this->booking = $booking;
+        $this->seats_booked = $seats_booked;
         $this ->updateAvailable();
         $this->requestBooking = [
             "seats_request" => 0,
@@ -28,12 +28,12 @@ class Bus
 
     public function getBooking()
     {
-        return  $this->booking;
+        return  $this->seats_booked;
     }
 
     public function getAvailable()
     {
-        return  $this->available;
+        return  $this->seats_available;
     }
 
 
@@ -43,13 +43,13 @@ class Bus
         switch ($book)
         {
             case 0:
-                if($this->available > 0)
+                if($this->seats_available> 0)
                 {
                     return true;
                 }
                 break;
             default:
-                if($this->available < $book)
+                if($this->seats_available < $book)
                 {
                     return false;
                 }
@@ -66,7 +66,7 @@ class Bus
     {
         $checkAvailable=$this->checkAvailable($num);
         if($checkAvailable) {
-            $this->booking += $num;
+            $this->seats_booked += $num;
             $this->updateAvailable();
         }
         $this->requestBooking["seats_request"] = $num;
@@ -76,7 +76,7 @@ class Bus
 
    private function  updateAvailable()
    {
-       $this->available = $this->seats - $this->booking;
+       $this->seats_available = $this->seats - $this->seats_booked;
    }
 
 
